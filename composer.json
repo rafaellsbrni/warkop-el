@@ -1,5 +1,5 @@
 {
-    "name": "warkop",
+    "name": "warkop/warkop-el",
     "type": "project",
     "description": "Warkop EL Inventory & Kasir UI (dummy data, frontend only)",
     "keywords": ["laravel", "warkop", "inventory"],

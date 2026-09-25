@@ -27,8 +27,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::prefix('stok')->name('stok.')->group(function () {
     Route::get('/', [StokController::class, 'index'])->name('index');
     Route::get('/tambah', [StokController::class, 'create'])->name('create');
-    Route::get('/stok/{kode?}/edit', [StokController::class, 'edit'])->name('stok.edit');
-    // Route::get('/edit', [StokController::class, 'edit'])->name('edit');
+    Route::get('/{kode?}/edit', [StokController::class, 'edit'])->name('edit');
 });
 
 Route::prefix('transaksi')->name('transaksi.')->group(function () {
@@ -37,6 +36,10 @@ Route::prefix('transaksi')->name('transaksi.')->group(function () {
     Route::get('/detail', [TransaksiController::class, 'detail'])->name('detail');
 });
 
-Route::get('/management-user', [UserController::class, 'index'])->name('user.index');
+Route::prefix('management-user')->name('user.')->group(function () {
+    Route::get('/', [UserController::class, 'index'])->name('index');
+    Route::get('/{no}/edit', [UserController::class, 'edit'])->name('edit');
+    Route::put('/{no}', [UserController::class, 'update'])->name('update');
+});
 
 Route::get('/profil', [ProfilController::class, 'index'])->name('profil.index');

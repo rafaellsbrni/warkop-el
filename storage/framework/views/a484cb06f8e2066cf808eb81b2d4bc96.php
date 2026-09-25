@@ -1,8 +1,8 @@
-@extends('layouts.app')
 
-@section('title', 'Management User')
 
-@section('content')
+<?php $__env->startSection('title', 'Management User'); ?>
+
+<?php $__env->startSection('content'); ?>
     <div class="mb-6">
         <h1 class="text-2xl font-bold text-white flex items-center gap-2">
             <svg class="w-6 h-6 text-wk-orange" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -56,31 +56,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($users as $u)
-                        @php
+                    <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $u): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <?php
                             $roleBadge = match ($u['role']) {
                                 'Admin' => 'bg-red-500 text-white',
                                 'Kasir' => 'bg-blue-500 text-white',
                                 default => 'bg-purple-500 text-white',
                             };
                             $statusBadge = $u['status'] === 'Aktif' ? 'bg-green-500 text-white' : 'bg-gray-500 text-white';
-                        @endphp
+                        ?>
                         <tr class="baris-user border-b border-wk-border/60 last:border-0 hover:bg-wk-panel2/60 transition"
-                            data-role="{{ $u['role'] }}" data-status="{{ $u['status'] }}"
-                            data-search="{{ strtolower($u['nama'].' '.$u['username'].' '.$u['email']) }}">
-                            <td class="px-6 py-4 text-gray-300">{{ $u['no'] }}</td>
-                            <td class="px-6 py-4 text-wk-orange-light font-medium">{{ $u['nama'] }}</td>
-                            <td class="px-6 py-4 text-gray-300">{{ $u['username'] }}</td>
-                            <td class="px-6 py-4 text-gray-300">{{ $u['email'] }}</td>
+                            data-role="<?php echo e($u['role']); ?>" data-status="<?php echo e($u['status']); ?>"
+                            data-search="<?php echo e(strtolower($u['nama'].' '.$u['username'].' '.$u['email'])); ?>">
+                            <td class="px-6 py-4 text-gray-300"><?php echo e($u['no']); ?></td>
+                            <td class="px-6 py-4 text-wk-orange-light font-medium"><?php echo e($u['nama']); ?></td>
+                            <td class="px-6 py-4 text-gray-300"><?php echo e($u['username']); ?></td>
+                            <td class="px-6 py-4 text-gray-300"><?php echo e($u['email']); ?></td>
                             <td class="px-6 py-4">
-                                <span class="inline-block px-3 py-1 rounded-md text-xs font-semibold {{ $roleBadge }}">{{ $u['role'] }}</span>
+                                <span class="inline-block px-3 py-1 rounded-md text-xs font-semibold <?php echo e($roleBadge); ?>"><?php echo e($u['role']); ?></span>
                             </td>
                             <td class="px-6 py-4">
-                                <span class="inline-block px-3 py-1 rounded-md text-xs font-semibold {{ $statusBadge }}">{{ $u['status'] }}</span>
+                                <span class="inline-block px-3 py-1 rounded-md text-xs font-semibold <?php echo e($statusBadge); ?>"><?php echo e($u['status']); ?></span>
                             </td>
                             <td class="px-6 py-4">
                                 <div class="flex items-center justify-end gap-2">
-                                    <a href="{{ route('user.edit', $u['no']) }}" class="w-8 h-8 flex items-center justify-center rounded-md bg-wk-orange/15 hover:bg-wk-orange/30 text-wk-orange-light transition" title="Edit">
+                                    <a href="<?php echo e(route('user.edit', $u['no'])); ?>" class="w-8 h-8 flex items-center justify-center rounded-md bg-wk-orange/15 hover:bg-wk-orange/30 text-wk-orange-light transition" title="Edit">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                                     </a>
                                     <button onclick="return confirm('Hapus user ini?')" class="w-8 h-8 flex items-center justify-center rounded-md bg-red-500/15 hover:bg-red-500/30 text-red-400 transition" title="Hapus">
@@ -89,13 +89,13 @@
                                 </div>
                             </td>
                         </tr>
-                    @endforeach
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </tbody>
             </table>
         </div>
     </div>
 
-    @push('scripts')
+    <?php $__env->startPush('scripts'); ?>
     <script>
         function applyFilter() {
             const q = document.getElementById('searchUser').value.toLowerCase();
@@ -113,5 +113,7 @@
         document.getElementById('filterRole').addEventListener('change', applyFilter);
         document.getElementById('filterStatus').addEventListener('change', applyFilter);
     </script>
-    @endpush
-@endsection
+    <?php $__env->stopPush(); ?>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\verrell\warkop-el\resources\views/user/index.blade.php ENDPATH**/ ?>
